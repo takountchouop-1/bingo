@@ -1,0 +1,104 @@
+.welcome-page {
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  padding: 32px;
+  background: #f4f7f3;
+}
+
+.welcome-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(100%, 440px);
+  padding: 44px 40px 38px;
+  text-align: center;
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 24px 60px rgba(17, 44, 34, 0.1);
+  animation: welcome-in 420ms ease-out;
+}
+
+.welcome-avatar {
+  position: relative;
+  width: 108px;
+  height: 108px;
+  margin-bottom: 22px;
+}
+
+.welcome-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #d7f0e1;
+}
+
+.welcome-avatar-badge {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  color: #fff;
+  background: #3cbd8a;
+  border: 3px solid #fff;
+  border-radius: 50%;
+}
+
+.welcome-card .eyebrow {
+  margin: 0 0 12px;
+}
+
+.welcome-title {
+  margin: 0 0 14px;
+  color: #16211a;
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(26px, 3.4vw, 34px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.8px;
+}
+
+.welcome-subtitle {
+  margin: 0 0 30px;
+  color: #7c8a81;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.welcome-continue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  color: #10200f;
+  background: #92df61;
+  border-radius: 999px;
+  box-shadow: 0 7px 15px rgba(146, 223, 97, 0.22);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background-color 220ms ease, transform 160ms ease, box-shadow 220ms ease;
+}
+
+.welcome-continue:hover {
+  background: #b0f184;
+  box-shadow: 0 9px 18px rgba(146, 223, 97, 0.28);
+  transform: translateY(-1px);
+}
+
+@keyframes welcome-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-card { animation: none; }
+}
+
+@media (max-width: 480px) {
+  .welcome-card { padding: 36px 26px 30px; }
+}
