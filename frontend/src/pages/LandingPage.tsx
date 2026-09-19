@@ -1,4 +1,5 @@
-import { ArrowRight, BriefcaseBusiness, CheckCircle2, Heart, Megaphone, MessageCircle, Play, Search, Sparkles, Users, UsersRound } from 'lucide-react'
+import { ArrowRight, BriefcaseBusiness, CalendarRange, CheckCircle2, Heart, MapPin, Megaphone, MessageCircle, Play, Search, Sparkles, Users, UsersRound, Wallet } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import welcomeImage from '../assets/welcome.jpg'
 import plumberImage from '../assets/plombier.jpg'
@@ -8,13 +9,33 @@ import assistImage from '../assets/assist.jpg'
 import personImage from '../assets/person.jpg'
 import './LandingPage.css'
 
+const JOB_POSTS_STORAGE_KEY = 'bingo-job-posts'
+
+type JobPost = {
+  id: string
+  title: string
+  type: string
+  location: string
+  salary: string
+  dateTime: string
+  description: string
+  createdAt: string
+}
+
 function LandingPage() {
+  const [jobPosts, setJobPosts] = useState<JobPost[]>([])
+
+  useEffect(() => {
+    const savedPosts = JSON.parse(localStorage.getItem(JOB_POSTS_STORAGE_KEY) ?? '[]') as JobPost[]
+    setJobPosts(Array.isArray(savedPosts) ? savedPosts : [])
+  }, [])
+
   return (
     <main className="landing-page">
       <nav className="landing-nav" aria-label="Main navigation">
-        <a className="landing-brand" href="#top" aria-label="Social Plateform home">
+        <a className="landing-brand" href="#top" aria-label="Bingo Plateform home">
           <span className="brand-orbit" aria-hidden="true"><span /></span>
-          <span>Social <strong>Plateform</strong></span>
+          <span>Bingo <strong>Plateform</strong></span>
         </a>
 
         <div className="landing-links">
@@ -63,7 +84,7 @@ function LandingPage() {
         <div className="opportunity-copy" id="about">
           <p className="section-eyebrow">Discover what is possible</p>
           <h2 id="opportunities-title">Your next opportunity<br />could be <em>closer than you think.</em></h2>
-          <p className="opportunity-intro">From finding work to helping a neighbour, Social Plateform brings the right people, resources, and opportunities together in one trusted space.</p>
+          <p className="opportunity-intro">From finding work to helping a neighbour, Bingo Plateform brings the right people, resources, and opportunities together in one trusted space.</p>
           <ul className="opportunity-list">
             <li><CheckCircle2 size={18} aria-hidden="true" /><span>Find jobs and everyday opportunities around you.</span></li>
             <li><CheckCircle2 size={18} aria-hidden="true" /><span>Offer your skills and build meaningful connections.</span></li>
@@ -111,13 +132,47 @@ function LandingPage() {
           <p className="job-banner-eyebrow">Turn skills into opportunities</p>
           <h2 id="job-banner-title">Post your job for millions of people to see.</h2>
           <p>Reach the right people, showcase what you do, and help your next opportunity find you.</p>
-          <a className="job-banner-button" href="#create-post">Post a job <ArrowRight size={16} aria-hidden="true" /></a>
+          <Link className="job-banner-button" to="/jobs/create">Post a job <ArrowRight size={16} aria-hidden="true" /></Link>
         </div>
         <div className="job-banner-stat" aria-label="People ready to discover your opportunity">
           <span className="stat-orbit"><Users size={27} aria-hidden="true" /></span>
           <strong>Millions</strong>
           <span>ready to discover<br />what you offer</span>
         </div>
+      </section>
+
+      <section className="job-postings-section" aria-labelledby="job-postings-title">
+        <div className="job-postings-header">
+          <p className="section-eyebrow">Latest opportunities</p>
+          <h2 id="job-postings-title">Open jobs from the community</h2>
+        </div>
+
+        {jobPosts.length === 0 ? (
+          <div className="jobs-empty-state">
+            No job posts yet. Be the first to share an opportunity.
+          </div>
+        ) : (
+          <div className="job-posts-grid">
+            {jobPosts.map((job) => (
+              <article key={job.id} className="job-post-card">
+                <div className="job-post-header">
+                  <div>
+                    <p className="job-type-pill">{job.type}</p>
+                    <h3>{job.title}</h3>
+                  </div>
+                </div>
+
+                <div className="job-meta-list">
+                  <span><MapPin size={15} aria-hidden="true" /> {job.location}</span>
+                  <span><Wallet size={15} aria-hidden="true" /> {job.salary}</span>
+                  <span><CalendarRange size={15} aria-hidden="true" /> {job.dateTime}</span>
+                </div>
+
+                <p className="job-description">{job.description}</p>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="about-section" aria-labelledby="about-title">
@@ -128,8 +183,8 @@ function LandingPage() {
         </div>
         <div className="about-copy">
           <p className="section-eyebrow">Who we are</p>
-          <h2 id="about-title">Who is Bingo<br /><em>Social Plateform for?</em></h2>
-          <p className="about-intro">Social Plateform is for everyone who wants to connect, discover opportunities, support others, and make a difference in their community.</p>
+          <h2 id="about-title">Who is<br /><em>Bingo Plateform</em> for?</h2>
+          <p className="about-intro">Bingo Plateform is for everyone who wants to connect, discover opportunities, support others, and make a difference in their community.</p>
           <div className="about-points">
             <div><span className="about-point-icon">01</span><span><strong>For people with purpose</strong><small>Share your skills, ideas, and everyday opportunities.</small></span></div>
             <div><span className="about-point-icon">02</span><span><strong>For communities that care</strong><small>Find trusted information and support when it matters.</small></span></div>
@@ -160,9 +215,9 @@ function LandingPage() {
       </section>
 
       <footer className="landing-footer">
-        <a className="landing-brand" href="#top" aria-label="Social Plateform home">
+        <a className="landing-brand" href="#top" aria-label="Bingo Plateform home">
           <span className="brand-orbit" aria-hidden="true"><span /></span>
-          <span>Social <strong>Plateform</strong></span>
+          <span>Bingo <strong>Plateform</strong></span>
         </a>
         <nav className="footer-links" aria-label="Footer navigation">
           <a href="#community">Community</a>
@@ -170,7 +225,7 @@ function LandingPage() {
           <a href="#about">About us</a>
           <a href="mailto:hello@socialplateform.com">Contact</a>
         </nav>
-        <p className="footer-copyright">© 2026 Social Plateform</p>
+        <p className="footer-copyright">© 2026 Bingo Plateform</p>
       </footer>
     </main>
   )

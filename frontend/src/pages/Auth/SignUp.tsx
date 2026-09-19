@@ -58,7 +58,7 @@ function SignUp() {
   return (
     <main className="auth-page signup-page">
       <section className="signin-panel" aria-labelledby="signup-title">
-        <Link to="/" className="brand-mark" aria-label="Back to Social Plateform home">
+        <Link to="/" className="brand-mark" aria-label="Back to Bingo Plateform home">
           <span>BINGO</span>
         </Link>
 
@@ -143,7 +143,7 @@ function SignUp() {
         </div>
 
         <footer className="signin-footer">
-          <span>© 2026 Social Plateform</span>
+          <span>© 2026 Bingo Plateform</span>
           <button type="button">English <span aria-hidden="true">⌄</span></button>
         </footer>
       </section>
